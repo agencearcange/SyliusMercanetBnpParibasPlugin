@@ -8,15 +8,12 @@
 
 ![](https://github.com/agencearcange/SyliusMercanetBnpParibasPlugin/workflows/Quality%20Assurance/badge.svg)
 
-
-## Features
-
 ## Install
 
 Note: to test the plugin locally, see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 1. [Install Sylius](https://docs.sylius.com/en/latest/book/installation/installation.html)
-2. Install **Arcange FromDatabase Plugin**: `composer require arcange/mercanet-bnp-paribas-plugin`
+2. Install **Mercanet Plugin**: `composer require arcange/mercanet-bnp-paribas-plugin`
 3. Register the bundle:
 
 ```php
@@ -26,6 +23,6 @@ Note: to test the plugin locally, see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 return [
     // ...
-    Arcange\MercanetBnpParibasPlugin\ArcangeMercanetBnpParibasPlugin::class => ['all' => true],
+    Arcange\SyliusMercanetBnpParibasPlugin\ArcangeSyliusMercanetBnpParibasPlugin::class => ['all' => true],
 ];
 ```
