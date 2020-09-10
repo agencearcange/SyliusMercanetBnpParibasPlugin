@@ -1,0 +1,6 @@
+services:
+    _defaults: { public: true }
+    arcange.mercanet_bnp_paribas_plugin.mocker.mercanet_bnp_paribas:
+        class: Tests\Arcange\SyliusMercanetBnpParibasPlugin\Behat\Mocker\MercanetBnpParibasMocker
+        arguments:
+            - '@sylius.behat.mocker'

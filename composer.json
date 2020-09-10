@@ -1,12 +1,14 @@
 {
-    "name": "sylius/plugin-skeleton",
+    "name": "arcange/sylius-mercanet-bnp-paribas-plugin",
     "type": "sylius-plugin",
-    "keywords": ["sylius", "sylius-plugin"],
-    "description": "Acme example plugin for Sylius.",
+    "keywords": ["sylius", "sylius-plugin", "mercanet"],
+    "description": "Mercanet BNP Paribas payment plugin for Sylius applications.",
     "license": "MIT",
     "require": {
         "php": "^7.3",
-
+        "ext-curl": "*",
+        "ext-xml": "*",
+        "ext-json": "*",
         "sylius/sylius": "^1.7.5"
     },
     "require-dev": {
@@ -39,8 +41,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Acme\\SyliusExamplePlugin\\": "src/",
-            "Tests\\Acme\\SyliusExamplePlugin\\": "tests/"
+            "Arcange\\SyliusMercanetBnpParibasPlugin\\": "src/",
+            "Tests\\Arcange\\SyliusMercanetBnpParibasPlugin\\": "tests/"
         }
     },
     "autoload-dev": {
@@ -48,7 +50,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.7-dev"
+            "dev-main": "1.0-dev"
         }
     },
     "config": {

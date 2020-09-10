@@ -1,0 +1,15 @@
+services:
+    _defaults: { public: true }
+    arcange.mercanet_bnp_paribas_plugin.page.external:
+        class: Tests\Arcange\SyliusMercanetBnpParibasPlugin\Behat\Page\External\MercanetBnpParibasCheckoutPage
+        parent: 'sylius.behat.page'
+        public: 'false'
+        arguments:
+            - '@sylius.repository.payment_security_token'
+
+    arcange.mercanet_bnp_paribas_plugin.page.admin.payment_method.create:
+        class: Tests\Arcange\SyliusMercanetBnpParibasPlugin\Behat\Page\Admin\PaymentMethod\CreatePage
+        parent: 'sylius.behat.page.admin.crud.create'
+        public: 'false'
+        arguments:
+            - 'sylius_admin_payment_method_create'

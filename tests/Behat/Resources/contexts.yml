@@ -1,0 +1,28 @@
+services:
+    _defaults: { public: true }
+    arcange.mercanet_bnp_paribas_plugin.context.setup.mercanet_bnp_paribas:
+        class: Tests\Arcange\SyliusMercanetBnpParibasPlugin\Behat\Context\Setup\MercanetBnpParibasContext
+        arguments:
+            - '@sylius.behat.shared_storage'
+            - '@sylius.repository.payment_method'
+            - '@sylius.fixture.example_factory.payment_method'
+            - '@sylius.factory.payment_method_translation'
+            - '@sylius.manager.payment_method'
+
+    arcange.mercanet_bnp_paribas_plugin.context.ui.shop.mercanet_bnp_paribas:
+        class: Tests\Arcange\SyliusMercanetBnpParibasPlugin\Behat\Context\Ui\Shop\MercanetBnpParibasContext
+        arguments:
+            - '@arcange.mercanet_bnp_paribas_plugin.mocker.mercanet_bnp_paribas'
+            - '@sylius.behat.page.shop.checkout.complete'
+            - '@arcange.mercanet_bnp_paribas_plugin.page.external'
+            - '@sylius.behat.page.shop.order.show'
+
+    arcange.mercanet_bnp_paribas_plugin.context.setup.channel:
+        class: Tests\Arcange\SyliusMercanetBnpParibasPlugin\Behat\Context\Setup\ChannelContext
+        arguments:
+            - '@sylius.behat.factory.default_channel'
+
+    arcange.mercanet_bnp_paribas_plugin.context.ui.admin.managing_payment_methods:
+        class: Tests\Arcange\SyliusMercanetBnpParibasPlugin\Behat\Context\Ui\Admin\ManagingPaymentMethodsContext
+        arguments:
+            - '@arcange.mercanet_bnp_paribas_plugin.page.admin.payment_method.create'
