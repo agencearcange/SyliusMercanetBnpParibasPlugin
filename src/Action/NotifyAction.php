@@ -33,10 +33,11 @@ final class NotifyAction implements ActionInterface, ApiAwareInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @param Notify $request
      */
     public function execute($request)
     {
-        /** @var Notify $request */
         RequestNotSupportedException::assertSupports($this, $request);
 
         if ($this->mercanetBnpParibasBridge->paymentVerification()) {
