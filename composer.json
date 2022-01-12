@@ -5,13 +5,14 @@
     "description": "Mercanet BNP Paribas payment plugin for Sylius applications.",
     "license": "MIT",
     "require": {
-        "php": "^7.3",
+        "php": "^7.4",
         "ext-curl": "*",
         "ext-xml": "*",
         "ext-json": "*",
-        "sylius/sylius": "^1.7.5"
+        "sylius/sylius": "~1.7.5"
     },
     "require-dev": {
+        "antiseptikk/dev-kit": "1.0.1",
         "behat/behat": "^3.6.1",
         "behat/mink-selenium2-driver": "^1.4",
         "dmore/behat-chrome-extension": "^1.3",
@@ -30,14 +31,13 @@
         "phpstan/phpstan-webmozart-assert": "0.12.4",
         "phpunit/phpunit": "^8.5",
         "sensiolabs/security-checker": "^6.0",
-        "sylius-labs/coding-standard": "^3.1",
         "symfony/browser-kit": "^4.4",
         "symfony/debug-bundle": "^4.4|^5.0",
         "symfony/dotenv": "^4.4|^5.0",
         "symfony/intl": "^4.4|^5.0",
         "symfony/web-profiler-bundle": "^4.4|^5.0",
         "symfony/web-server-bundle": "^4.4|^5.0",
-        "vimeo/psalm": "3.11.4"
+        "symplify/easy-coding-standard": "~8.1"
     },
     "autoload": {
         "psr-4": {

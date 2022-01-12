@@ -14,22 +14,17 @@ namespace Arcange\SyliusMercanetBnpParibasPlugin\Legacy;
  */
 class Mercanet
 {
-    public const TEST = 'https://payment-webinit-mercanet.test.sips-atos.com/rs-services/v2/paymentInit';
+    const TEST = "https://payment-webinit-mercanet.test.sips-atos.com/paymentInit";
+    const PRODUCTION = "https://payment-webinit.mercanet.bnpparibas.net/paymentInit";
 
-    public const SIMULATION = 'https://payment-webinit.simu.mercanet.bnpparibas.net/rs-services/v2/paymentInit';
-
-    public const PRODUCTION = 'https://payment-webinit.mercanet.bnpparibas.net/rs-services/v2/paymentInit';
-
-    public const INTERFACE_VERSION = 'IR_WS_2.17';
-
-    public const INSTALMENT = 'INSTALMENT';
+    const INTERFACE_VERSION = "HP_2.20";
+    const INSTALMENT = "INSTALMENT";
 
     // BYPASS3DS
-    public const BYPASS3DS_ALL = 'ALL';
+    const BYPASS3DS_ALL = "ALL";
+    const BYPASS3DS_MERCHANTWALLET = "MERCHANTWALLET";
 
-    public const BYPASS3DS_MERCHANTWALLET = 'MERCHANTWALLET';
-
-    private $brandsmap = [
+    private $brandsmap = array(
         'ACCEPTGIRO' => 'CREDIT_TRANSFER',
         'AMEX' => 'CARD',
         'BCMC' => 'CARD',
@@ -52,146 +47,64 @@ class Mercanet
         'VPAY' => 'CARD',
         'VISA ELECTRON' => 'CARD',
         'CBCONLINE' => 'CREDIT_TRANSFER',
-        'KBCONLINE' => 'CREDIT_TRANSFER',
-    ];
+        'KBCONLINE' => 'CREDIT_TRANSFER'
+    );
 
-    /** @var string */
+    /** @var ShaComposer */
     private $secretKey;
 
     private $pspURL = self::TEST;
 
-    private $responseData;
+    private $parameters = array();
 
-    private $parameters = [];
+    private $pspFields = array(
+        'amount', 'currencyCode', 'merchantId', 'normalReturnUrl',
+        'transactionReference', 'keyVersion', 'paymentMeanBrand', 'customerLanguage',
+        'billingAddress.city', 'billingAddress.company', 'billingAddress.country',
+        'billingAddress', 'billingAddress.postBox', 'billingAddress.state',
+        'billingAddress.street', 'billingAddress.streetNumber', 'billingAddress.zipCode',
+        'billingContact.email', 'billingContact.firstname', 'billingContact.gender',
+        'billingContact.lastname', 'billingContact.mobile', 'billingContact.phone',
+        'customerAddress', 'customerAddress.city', 'customerAddress.company',
+        'customerAddress.country', 'customerAddress.postBox', 'customerAddress.state',
+        'customerAddress.street', 'customerAddress.streetNumber', 'customerAddress.zipCode',
+        'customerContact', 'customerContact.email', 'customerContact.firstname',
+        'customerContact.gender', 'customerContact.lastname', 'customerContact.mobile',
+        'customerContact.phone', 'customerContact.title', 'expirationDate', 'automaticResponseUrl',
+        'templateName','paymentMeanBrandList', 'instalmentData.number', 'instalmentData.datesList',
+        'instalmentData.transactionReferencesList', 'instalmentData.amountsList', 'paymentPattern',
+        'captureDay', 'fraudData.bypass3DS'
+    );
 
-    private $pspFields = [
-        'amount',
-        'cardExpiryDate',
-        'cardNumber',
-        'cardCSCValue',
-        'currencyCode',
-        'merchantId',
-        'interfaceVersion',
-        'sealAlgorithm',
-        'transactionReference',
-        'keyVersion',
-        'paymentMeanBrand',
-        'customerLanguage',
-        'billingAddress.city',
-        'billingAddress.company',
-        'billingAddress.country',
-        'billingAddress',
-        'billingAddress.postBox',
-        'billingAddress.state',
-        'billingAddress.street',
-        'billingAddress.streetNumber',
-        'billingAddress.zipCode',
-        'billingContact.email',
-        'billingContact.firstname',
-        'billingContact.gender',
-        'billingContact.lastname',
-        'billingContact.mobile',
-        'billingContact.phone',
-        'customerAddress',
-        'customerAddress.city',
-        'customerAddress.company',
-        'customerAddress.country',
-        'customerAddress.postBox',
-        'customerAddress.state',
-        'customerAddress.street',
-        'customerAddress.streetNumber',
-        'customerAddress.zipCode',
-        'customerEmail',
-        'customerContact',
-        'customerContact.email',
-        'customerContact.firstname',
-        'customerContact.gender',
-        'customerContact.lastname',
-        'customerContact.mobile',
-        'customerContact.phone',
-        'customerContact.title',
-        'expirationDate',
-        'automaticResponseUrl',
-        'templateName',
-        'paymentMeanBrandList',
-        'instalmentData.number',
-        'instalmentData.datesList',
-        'instalmentData.transactionReferencesList',
-        'instalmentData.amountsList',
-        'paymentPattern',
-        'captureDay',
-        'captureMode',
-        'merchantTransactionDateTime',
-        'fraudData.bypass3DS',
-        'seal',
-        'orderChannel',
-        'orderId',
-        'returnContext',
-        'transactionOrigin',
-        'merchantWalletId',
-        'paymentMeanId',
-    ];
+    private $requiredFields = array(
+        'amount', 'currencyCode', 'merchantId', 'normalReturnUrl',
+        'transactionReference', 'keyVersion'
+    );
 
-    private $requiredFields = [
-        'amount',
-        'currencyCode',
-        'interfaceVersion',
-        'keyVersion',
-        'merchantId',
-        'normalReturnUrl',
-        'orderChannel',
-        'transactionReference',
-    ];
+    public $allowedlanguages = array(
+        'nl', 'fr', 'de', 'it', 'es', 'cy', 'en'
+    );
 
-    public $allowedlanguages = [
-        'nl',
-        'fr',
-        'de',
-        'it',
-        'es',
-        'cy',
-        'en',
-    ];
-
-    private static $currencies = [
-        'EUR' => '978',
-        'USD' => '840',
-        'CHF' => '756',
-        'GBP' => '826',
-        'CAD' => '124',
-        'JPY' => '392',
-        'MXP' => '484',
-        'TRY' => '949',
-        'AUD' => '036',
-        'NZD' => '554',
-        'NOK' => '578',
-        'BRC' => '986',
-        'ARP' => '032',
-        'KHR' => '116',
-        'TWD' => '901',
-        'SEK' => '752',
-        'DKK' => '208',
-        'KRW' => '410',
-        'SGD' => '702',
-        'XPF' => '953',
-        'XOF' => '952',
-    ];
+    private static $currencies = array(
+        'EUR' => '978', 'USD' => '840', 'CHF' => '756', 'GBP' => '826',
+        'CAD' => '124', 'JPY' => '392', 'MXP' => '484', 'TRY' => '949',
+        'AUD' => '036', 'NZD' => '554', 'NOK' => '578', 'BRC' => '986',
+        'ARP' => '032', 'KHR' => '116', 'TWD' => '901', 'SEK' => '752',
+        'DKK' => '208', 'KRW' => '410', 'SGD' => '702', 'XPF' => '953',
+        'XOF' => '952'
+    );
 
     public static function convertCurrencyToCurrencyCode($currency)
     {
-        if (!in_array($currency, array_keys(self::$currencies))) {
+        if(!in_array($currency, array_keys(self::$currencies)))
             throw new \InvalidArgumentException("Unknown currencyCode $currency.");
-        }
-
         return self::$currencies[$currency];
     }
 
     public static function convertCurrencyCodeToCurrency($code)
     {
-        if (!in_array($code, array_values(self::$currencies))) {
+        if(!in_array($code, array_values(self::$currencies)))
             throw new \InvalidArgumentException("Unknown Code $code.");
-        }
-
         return array_search($code, self::$currencies);
     }
 
@@ -209,29 +122,19 @@ class Mercanet
     {
         // compose SHA string
         $shaString = '';
-        foreach ($parameters as $key => $value) {
-            if ($key != 'keyVersion') {
-                if (is_array($value)) {
-                    $this->shaCompose($value);
-                } else {
-                    $shaString .= $value;
-                }
-            }
+        foreach($parameters as $key => $value) {
+            $shaString .= $key . '=' . $value;
+            $shaString .= (array_search($key, array_keys($parameters)) != (count($parameters)-1)) ? '|' : $this->secretKey;
         }
-        $shaString = str_replace('[', '', $shaString);
-        $shaString = str_replace(']', '', $shaString);
-        $shaString = str_replace('","', '', $shaString);
-        $shaString = str_replace('"', '', $shaString);
 
-        return $shaString;
+        return hash('sha256', $shaString);
     }
 
     /** @return string */
     public function getShaSign()
     {
         $this->validate();
-
-        return hash_hmac('sha256', utf8_encode($this->shaCompose($this->toArray())), $this->secretKey);
+        return $this->shaCompose($this->toArray());
     }
 
     /** @return string */
@@ -260,8 +163,8 @@ class Mercanet
 
     public function setTransactionReference($transactionReference)
     {
-        if (preg_match('/[^a-zA-Z0-9_-]/', $transactionReference)) {
-            throw new \InvalidArgumentException('TransactionReference cannot contain special characters');
+        if(preg_match('/[^a-zA-Z0-9_-]/', $transactionReference)) {
+            throw new \InvalidArgumentException("TransactionReference cannot contain special characters");
         }
         $this->parameters['transactionReference'] = $transactionReference;
     }
@@ -271,216 +174,127 @@ class Mercanet
      */
     public function setAmount($amount)
     {
-        if (!is_int($amount)) {
-            throw new \InvalidArgumentException('Integer expected. Amount is always in cents');
+        if(!is_int($amount)) {
+            throw new \InvalidArgumentException("Integer expected. Amount is always in cents");
         }
-        if ($amount <= 0) {
-            throw new \InvalidArgumentException('Amount must be a positive number');
+        if($amount <= 0) {
+            throw new \InvalidArgumentException("Amount must be a positive number");
         }
         $this->parameters['amount'] = $amount;
-    }
 
-    public function setMerchantId($merchantId)
-    {
-        $this->parameters['merchantId'] = $merchantId;
-    }
-
-    public function setKeyVersion($keyVersion)
-    {
-        $this->parameters['keyVersion'] = $keyVersion;
     }
 
     public function setCurrency($currency)
     {
-        if (!array_key_exists(strtoupper($currency), self::getCurrencies())) {
-            throw new \InvalidArgumentException('Unknown currency');
+        if(!array_key_exists(strtoupper($currency), self::getCurrencies())) {
+            throw new \InvalidArgumentException("Unknown currency");
         }
         $this->parameters['currencyCode'] = self::convertCurrencyToCurrencyCode($currency);
     }
 
     public function setLanguage($language)
     {
-        if (!in_array($language, $this->allowedlanguages)) {
-            throw new \InvalidArgumentException('Invalid language locale');
+        if(!in_array($language, $this->allowedlanguages)) {
+            throw new \InvalidArgumentException("Invalid language locale");
         }
         $this->parameters['customerLanguage'] = $language;
-    }
-
-    public function setCustomerEmail($email)
-    {
-        $this->parameters['customerEmail'] = $email;
     }
 
     public function setPaymentBrand($brand)
     {
         $this->parameters['paymentMeanBrandList'] = '';
-        if (!array_key_exists(strtoupper($brand), $this->brandsmap)) {
+        if(!array_key_exists(strtoupper($brand), $this->brandsmap)) {
             throw new \InvalidArgumentException("Unknown Brand [$brand].");
         }
         $this->parameters['paymentMeanBrandList'] = strtoupper($brand);
     }
 
+    public function setCustomerContactEmail($email)
+    {
+        if(strlen($email) > 50) {
+            throw new \InvalidArgumentException("Email is too long");
+        }
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            throw new \InvalidArgumentException("Email is invalid");
+        }
+        $this->parameters['customerContact.email'] = $email;
+    }
+
     public function setBillingContactEmail($email)
     {
-        if (strlen($email) > 50) {
-            throw new \InvalidArgumentException('Email is too long');
+        if(strlen($email) > 50) {
+            throw new \InvalidArgumentException("Email is too long");
         }
-        if (!filter_var($email, \FILTER_VALIDATE_EMAIL)) {
-            throw new \InvalidArgumentException('Email is invalid');
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            throw new \InvalidArgumentException("Email is invalid");
         }
         $this->parameters['billingContact.email'] = $email;
     }
 
     public function setBillingAddressStreet($street)
     {
-        if (strlen($street) > 35) {
-            throw new \InvalidArgumentException('street is too long');
+        if(strlen($street) > 35) {
+            throw new \InvalidArgumentException("street is too long");
         }
         $this->parameters['billingAddress.street'] = \Normalizer::normalize($street);
     }
 
     public function setBillingAddressStreetNumber($nr)
     {
-        if (strlen($nr) > 10) {
-            throw new \InvalidArgumentException('streetNumber is too long');
+        if(strlen($nr) > 10) {
+            throw new \InvalidArgumentException("streetNumber is too long");
         }
         $this->parameters['billingAddress.streetNumber'] = \Normalizer::normalize($nr);
     }
 
     public function setBillingAddressZipCode($zipCode)
     {
-        if (strlen($zipCode) > 10) {
-            throw new \InvalidArgumentException('zipCode is too long');
+        if(strlen($zipCode) > 10) {
+            throw new \InvalidArgumentException("zipCode is too long");
         }
         $this->parameters['billingAddress.zipCode'] = \Normalizer::normalize($zipCode);
     }
 
     public function setBillingAddressCity($city)
     {
-        if (strlen($city) > 25) {
-            throw new \InvalidArgumentException('city is too long');
+        if(strlen($city) > 25) {
+            throw new \InvalidArgumentException("city is too long");
         }
         $this->parameters['billingAddress.city'] = \Normalizer::normalize($city);
     }
 
     public function setBillingContactPhone($phone)
     {
-        if (strlen($phone) > 30) {
-            throw new \InvalidArgumentException('phone is too long');
+        if(strlen($phone) > 30) {
+            throw new \InvalidArgumentException("phone is too long");
         }
         $this->parameters['billingContact.phone'] = $phone;
     }
 
     public function setBillingContactFirstname($firstname)
     {
-        $this->parameters['billingContact.firstname'] = str_replace(["'", '"'], '', \Normalizer::normalize($firstname)); // replace quotes
+        $this->parameters['billingContact.firstname'] = str_replace(array("'", '"'), '', \Normalizer::normalize($firstname)); // replace quotes
     }
 
     public function setBillingContactLastname($lastname)
     {
-        $this->parameters['billingContact.lastname'] = str_replace(["'", '"'], '', \Normalizer::normalize($lastname)); // replace quotes
+        $this->parameters['billingContact.lastname'] = str_replace(array("'", '"'), '', \Normalizer::normalize($lastname)); // replace quotes
     }
 
     public function setCaptureDay($number)
     {
         if (strlen($number) > 2) {
-            throw new \InvalidArgumentException('captureDay is too long');
+            throw new \InvalidArgumentException("captureDay is too long");
         }
         $this->parameters['captureDay'] = $number;
-    }
-
-    public function setCaptureMode($value)
-    {
-        if (strlen($value) > 20) {
-            throw new \InvalidArgumentException('captureMode is too long');
-        }
-        $this->parameters['captureMode'] = $value;
-    }
-
-    public function setMerchantTransactionDateTime($value)
-    {
-        if (strlen($value) > 25) {
-            throw new \InvalidArgumentException('merchantTransactionDateTime is too long');
-        }
-        $this->parameters['merchantTransactionDateTime'] = $value;
-    }
-
-    public function setInterfaceVersion($value)
-    {
-        $this->parameters['interfaceVersion'] = $value;
-    }
-
-    public function setSealAlgorithm($value)
-    {
-        $this->parameters['sealAlgorithm'] = $value;
-    }
-
-    public function setOrderChannel($value)
-    {
-        if (strlen($value) > 20) {
-            throw new \InvalidArgumentException('orderChannel is too long');
-        }
-        $this->parameters['orderChannel'] = $value;
-    }
-
-    public function setOrderId($value)
-    {
-        if (strlen($value) > 32) {
-            throw new \InvalidArgumentException('orderId is too long');
-        }
-        $this->parameters['orderId'] = $value;
-    }
-
-    public function setReturnContext($value)
-    {
-        if (strlen($value) > 255) {
-            throw new \InvalidArgumentException('returnContext is too long');
-        }
-        $this->parameters['returnContext'] = $value;
-    }
-
-    public function setTransactionOrigin($value)
-    {
-        if (strlen($value) > 20) {
-            throw new \InvalidArgumentException('transactionOrigin is too long');
-        }
-        $this->parameters['transactionOrigin'] = $value;
-    }
-
-    // Methodes liees a la carte
-    public function setCardNumber($number)
-    {
-        if (strlen($number) > 19) {
-            throw new \InvalidArgumentException('cardNumber is too long');
-        }
-        if (strlen($number) < 12) {
-            throw new \InvalidArgumentException('cardNumber is too short');
-        }
-        $this->parameters['cardNumber'] = $number;
-    }
-
-    public function setCardExpiryDate($date)
-    {
-        if (strlen($date) != 6) {
-            throw new \InvalidArgumentException('cardExpiryDate value is invalid');
-        }
-        $this->parameters['cardExpiryDate'] = $date;
-    }
-
-    public function setCardCSCValue($value)
-    {
-        if (strlen($value) > 4) {
-            throw new \InvalidArgumentException('cardCSCValue value is invalid');
-        }
-        $this->parameters['cardCSCValue'] = $value;
     }
 
     // Methodes liees a la lutte contre la fraude
 
     public function setFraudDataBypass3DS($value)
     {
-        if (strlen($value) > 128) {
-            throw new \InvalidArgumentException('fraudData.bypass3DS is too long');
+        if(strlen($value) > 128) {
+            throw new \InvalidArgumentException("fraudData.bypass3DS is too long");
         }
         $this->parameters['fraudData.bypass3DS'] = $value;
     }
@@ -489,29 +303,23 @@ class Mercanet
 
     public function setMerchantWalletId($wallet)
     {
-        if (strlen($wallet) > 21) {
-            throw new \InvalidArgumentException('merchantWalletId is too long');
+        if(strlen($wallet) > 21) {
+            throw new \InvalidArgumentException("merchantWalletId is too long");
         }
         $this->parameters['merchantWalletId'] = $wallet;
     }
 
-    public function setPaymentMeanId($value)
-    {
-        if (strlen($value) > 6) {
-            throw new \InvalidArgumentException('paymentMeanId is too long');
-        }
-        $this->parameters['paymentMeanId'] = $value;
-    }
+    // instalmentData.number instalmentData.datesList instalmentData.transactionReferencesList instalmentData.amountsList paymentPattern
 
     // Methodes liees au paiement en n-fois
 
     public function setInstalmentDataNumber($number)
     {
         if (strlen($number) > 2) {
-            throw new \InvalidArgumentException('instalmentData.number is too long');
+            throw new \InvalidArgumentException("instalmentData.number is too long");
         }
-        if (($number < 2) || ($number > 50)) {
-            throw new \InvalidArgumentException('instalmentData.number invalid value : value must be set between 2 and 50');
+        if ( ($number < 2) || ($number > 50) ) {
+            throw new \InvalidArgumentException("instalmentData.number invalid value : value must be set between 2 and 50");
         }
         $this->parameters['instalmentData.number'] = $number;
     }
@@ -538,18 +346,17 @@ class Mercanet
 
     public function __call($method, $args)
     {
-        if (substr($method, 0, 3) == 'set') {
+        if(substr($method, 0, 3) == 'set') {
             $field = lcfirst(substr($method, 3));
-            if (in_array($field, $this->pspFields)) {
+            if(in_array($field, $this->pspFields)) {
                 $this->parameters[$field] = $args[0];
-
                 return;
             }
         }
 
-        if (substr($method, 0, 3) == 'get') {
+        if(substr($method, 0, 3) == 'get') {
             $field = lcfirst(substr($method, 3));
-            if (array_key_exists($field, $this->parameters)) {
+            if(array_key_exists($field, $this->parameters)) {
                 return $this->parameters[$field];
             }
         }
@@ -559,97 +366,55 @@ class Mercanet
 
     public function toArray()
     {
-        ksort($this->parameters);
-
         return $this->parameters;
     }
 
     public function toParameterString()
     {
-        ksort($this->parameters);
-
-        $dataName = '';
-        $parameterArray = [];
-        $chaine = '{';
-        foreach ($this->parameters as $key => $val) {
-            $dataArray = explode('.', $key);
-            if (count($dataArray) > 1) {
-                if ($dataName == $dataArray[0]) {
-                    $parameterArray[$dataArray[1]] = $val;
-                } else {
-                    if ($dataName != '') {
-                        if (strlen($chaine) != 1) {
-                            $chaine .= ',';
-                        }
-                        $chaine .= '"' . $dataName . '":' . json_encode($parameterArray);
-                    }
-                    unset($parameterArray);
-                    $parameterArray = [];
-                    $dataName = $dataArray[0];
-                    $parameterArray[$dataArray[1]] = $val;
-                }
-            } else {
-                if ($dataName != '') {
-                    if (strlen($chaine) != 1) {
-                        $chaine .= ',';
-                    }
-                    $chaine .= '"' . $dataName . '":' . json_encode($parameterArray);
-                    $dataName = '';
-                }
-                if (strlen($chaine) != 1) {
-                    $chaine .= ',';
-                }
-                $chaine .= '"' . $key . '":"' . $val . '"';
-            }
-        }
-        if ($dataName != '') {
-            if (strlen($chaine) != 1) {
-                $chaine .= ',';
-            }
-            $chaine .= '"' . $dataName . '":' . json_encode($parameterArray);
+        $parameterString = "";
+        foreach($this->parameters as $key => $value) {
+            $parameterString .= $key . '=' . $value;
+            $parameterString .= (array_search($key, array_keys($this->parameters)) != (count($this->parameters)-1)) ? '|' : '';
         }
 
-        $chaine .= ',"seal" : "' . $this->getShaSign() . '" }';
-        $chaine = str_replace(':"[', ':[', $chaine);
-        $chaine = str_replace(']"', ']', $chaine);
-        $chaine = str_replace('\\"', '"', $chaine);
-
-        return $chaine;
+        return $parameterString;
     }
 
-    /*
-    if (substr($val, 0, 1) == "[")
-                      $chaine .= '"'.$key.'":'.$val;
-                    else
-                      $chaine .= '"'.$key.'":"'.$val.'"'; */
-
-    /** @return Mercanet */
-    public static function createFromArray(string $shaComposer, array $parameters)
+    public function setOrderChannel($value)
     {
-        $instance = new self($shaComposer);
-        foreach ($parameters as $key => $value) {
+        if (strlen($value) > 20) {
+            throw new \InvalidArgumentException('orderChannel is too long');
+        }
+        $this->parameters['orderChannel'] = $value;
+    }
+
+    /** @return PaymentRequest */
+    public static function createFromArray(ShaComposer $shaComposer, array $parameters)
+    {
+        $instance = new static($shaComposer);
+        foreach($parameters as $key => $value)
+        {
             $instance->{"set$key"}($value);
         }
-
         return $instance;
     }
 
     public function validate()
     {
-        foreach ($this->requiredFields as $field) {
-            if (empty($this->parameters[$field])) {
-                throw new \RuntimeException($field . ' can not be empty');
+        foreach($this->requiredFields as $field) {
+            if(empty($this->parameters[$field])) {
+                throw new \RuntimeException($field . " can not be empty");
             }
         }
     }
 
     protected function validateUri($uri)
     {
-        if (!filter_var($uri, \FILTER_VALIDATE_URL)) {
-            throw new \InvalidArgumentException('Uri is not valid');
+        if(!filter_var($uri, FILTER_VALIDATE_URL)) {
+            throw new \InvalidArgumentException("Uri is not valid");
         }
-        if (strlen($uri) > 200) {
-            throw new \InvalidArgumentException('Uri is too long');
+        if(strlen($uri) > 200) {
+            throw new \InvalidArgumentException("Uri is too long");
         }
     }
 
@@ -657,15 +422,15 @@ class Mercanet
     // -----------------------------------
 
     /** @var string */
-    public const SHASIGN_FIELD = 'SEAL';
+    const SHASIGN_FIELD = "SEAL";
 
     /** @var string */
-    public const DATA_FIELD = 'DATA';
+    const DATA_FIELD = "DATA";
 
     public function setResponse(array $httpRequest)
     {
         // use lowercase internally
-        $httpRequest = array_change_key_case($httpRequest, \CASE_UPPER);
+        $httpRequest = array_change_key_case($httpRequest, CASE_UPPER);
 
         // set sha sign
         $this->shaSign = $this->extractShaSign($httpRequest);
@@ -674,33 +439,29 @@ class Mercanet
         $this->parameters = $this->filterRequestParameters($httpRequest);
     }
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $shaSign;
 
     private $dataString;
 
-    private $responseRequest;
-
-    private $parameterArray;
-
     /**
      * Filter http request parameters
-     *
-     * @return array
+     * @param array $requestParameters
      */
     private function filterRequestParameters(array $httpRequest)
     {
         //filter request for Sips parameters
-        if (!array_key_exists(self::DATA_FIELD, $httpRequest) || $httpRequest[self::DATA_FIELD] == '') {
+        if(!array_key_exists(self::DATA_FIELD, $httpRequest) || $httpRequest[self::DATA_FIELD] == '') {
             throw new \InvalidArgumentException('Data parameter not present in parameters.');
         }
-        $parameters = [];
-        $this->responseData = $httpRequest[self::DATA_FIELD];
+        $parameters = array();
         $dataString = $httpRequest[self::DATA_FIELD];
         $this->dataString = $dataString;
         $dataParams = explode('|', $dataString);
-        foreach ($dataParams as $dataParamString) {
-            $dataKeyValue = explode('=', $dataParamString, 2);
+        foreach($dataParams as $dataParamString) {
+            $dataKeyValue = explode('=',$dataParamString,2);
             $parameters[$dataKeyValue[0]] = $dataKeyValue[1];
         }
 
@@ -714,110 +475,70 @@ class Mercanet
 
     private function extractShaSign(array $parameters)
     {
-        if (!array_key_exists(self::SHASIGN_FIELD, $parameters) || $parameters[self::SHASIGN_FIELD] == '') {
+        if(!array_key_exists(self::SHASIGN_FIELD, $parameters) || $parameters[self::SHASIGN_FIELD] == '') {
             throw new \InvalidArgumentException('SHASIGN parameter not present in parameters.');
         }
-
         return $parameters[self::SHASIGN_FIELD];
     }
 
     /**
      * Checks if the response is valid
-     *
+     * @param ShaComposer $shaComposer
      * @return bool
      */
     public function isValid()
     {
-        $resultat = false;
-
-        $signature = $this->responseData;
-        $compute = hash('sha256', utf8_encode($signature . $this->secretKey));
-        if (strcmp($this->shaSign, $compute) == 0) {
-            if ((strcmp($this->parameters['responseCode'], '00') == 0) || (strcmp($this->parameters['responseCode'], '60') == 0)) {
-                $resultat = true;
-            }
-        }
-
-        return $resultat;
-    }
-
-    public function getXmlValueByTag($inXmlset, $needle)
-    {
-        $tagValue = '';
-        $resource = xml_parser_create(); //Create an XML parser
-        xml_parse_into_struct($resource, $inXmlset, $outArray); // Parse XML data into an array structure
-        xml_parser_free($resource); //Free an XML parser
-        for ($i = 0; $i < count($outArray); ++$i) {
-            if ($outArray[$i]['tag'] == strtoupper($needle)) {
-                $tagValue = $outArray[$i]['value'];
-            }
-        }
-
-        return $tagValue;
+        return $this->shaCompose($this->parameters) == $this->shaSign;
     }
 
     /**
      * Retrieves a response parameter
-     *
-     * @param string $key
-     *
+     * @param string $param
      * @throws \InvalidArgumentException
      */
     public function getParam($key)
     {
-        return $this->parameterArray[$key];
+        if(method_exists($this, 'get'.$key)) {
+            return $this->{'get'.$key}();
+        }
+
+        // always use uppercase
+        $key = strtoupper($key);
+        $parameters = array_change_key_case($this->parameters,CASE_UPPER);
+        if(!array_key_exists($key, $parameters)) {
+            throw new \InvalidArgumentException('Parameter ' . $key . ' does not exist.');
+        }
+
+        return $parameters[$key];
     }
 
-    public function getResponseRequest()
+    /**
+     * @return int Amount in cents
+     */
+    public function getAmount()
     {
-        return $this->responseRequest;
+        $value = trim($this->parameters['amount']);
+        return (int) ($value);
+    }
+
+    public function isSuccessful()
+    {
+        return in_array($this->getParam('RESPONSECODE'), array("00", "60"));
+    }
+
+    public function getDataString()
+    {
+        return $this->dataString;
     }
 
     public function executeRequest()
     {
-        $ch = curl_init();
-        curl_setopt($ch, \CURLOPT_URL, $this->getUrl());
-        curl_setopt($ch, \CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, \CURLOPT_POST, true);
-        curl_setopt($ch, \CURLOPT_POSTFIELDS, $this->toParameterString());
-        curl_setopt($ch, \CURLOPT_HTTPHEADER, [
-            'Content-Type: application/json',
-            'Accept:application/json',
-        ]);
-        curl_setopt($ch, \CURLOPT_PORT, 443);
-        curl_setopt($ch, \CURLOPT_SSL_VERIFYHOST, false);
-        $result = curl_exec($ch); // $this->responseRequest et 	$this->responseStatus = false;
-        $info = curl_getinfo($ch);
-
-        if (!$result) {
-            echo 'curl error: ' . curl_error($ch) . "\n";
-            curl_close($ch);
-            die();
-        }
-
-        if ($info['http_code'] != 200) {
-            echo 'service error: ' . $info['http_code'] . "\n";
-            echo 'return: ' . $result . "\n";
-            curl_close($ch);
-            die();
-        }
-
-        curl_close($ch);
-
-        if (strlen($result) == 0) {
-            echo "service did not sent back data\n";
-            die();
-        }
-
-        $result_array = json_decode($result);
-
-        if ($result_array->redirectionStatusCode == '00') {
-            return '<html><body><form name="redirectForm" method="POST" action="' . $result_array->redirectionUrl . '">' .
-                '<input type="hidden" name="redirectionVersion" value="' . $result_array->redirectionVersion . '">' .
-                '<input type="hidden" name="redirectionData" value="' . $result_array->redirectionData . '">' .
-                '<noscript><input type="submit" name="Go" value="Click to continue"/></noscript> </form>' .
-                '<script type="text/javascript"> document.redirectForm.submit(); </script>' .
-                '</body></html>';
-        }
+        return "<html><body><form name=\"redirectForm\" method=\"POST\" action=\"" . $this->getUrl() . "\">" .
+            "<input type=\"hidden\" name=\"Data\" value=\"". $this->toParameterString() . "\">" .
+            "<input type=\"hidden\" name=\"InterfaceVersion\" value=\"". Mercanet::INTERFACE_VERSION . "\">" .
+            "<input type=\"hidden\" name=\"Seal\" value=\"" . $this->getShaSign() . "\">" .
+            "<noscript><input type=\"submit\" name=\"Go\" value=\"Click to continue\"/></noscript> </form>" .
+            "<script type=\"text/javascript\"> document.redirectForm.submit(); </script>" .
+            "</body></html>";
     }
 }

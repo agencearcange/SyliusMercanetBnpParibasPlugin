@@ -65,6 +65,11 @@ final class MercanetBnpParibasMocker
             ->andReturn(Mercanet::TEST)
         ;
 
+        $openMercanetBnpParibasWrapper
+            ->shouldReceive('getAuthorisationId')
+            ->andReturn(1)
+        ;
+
         $action();
 
         $this->mocker->unmockAll();

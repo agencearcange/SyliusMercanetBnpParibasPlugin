@@ -5,12 +5,12 @@ services:
         image: percona:5.7
         environment:
             - MYSQL_ALLOW_EMPTY_PASSWORD=true
-            - MYSQL_DATABASE=sylius_plugin_dev
+            - MYSQL_DATABASE=sylius_mercanet_test
         volumes:
-            - ./tests/Application/var/database:/var/lib/mysql:rw,delegated
-        command: mysqld --sql_mode=""
+            - database:/var/lib/mysql:rw,cached
+        command: mysqld --sql_mode="" --max_allowed_packet=325058560
         ports:
-            - "12542:3306"
+            - "3306:3306"
 
 volumes:
-    mysql-data:
+    database: {}

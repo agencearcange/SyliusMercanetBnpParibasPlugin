@@ -24,6 +24,20 @@ use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\RouteCollectionBuilder;
 use Webmozart\Assert\Assert;
 
+require_once __DIR__ . '/../../vendor/laminas/laminas-code/src/Generator/GeneratorInterface.php';
+require_once __DIR__ . '/../../vendor/laminas/laminas-code/src/Generator/AbstractGenerator.php';
+require_once __DIR__ . '/../../vendor/laminas/laminas-code/src/Generator/TraitUsageInterface.php';
+require_once __DIR__ . '/../../vendor/laminas/laminas-code/src/Generator/ClassGenerator.php';
+
+class_alias("Laminas\Code\Generator\GeneratorInterface",
+    "Zend\Code\Generator\GeneratorInterface");
+class_alias("Laminas\Code\Generator\AbstractGenerator",
+    "Zend\Code\Generator\AbstractGenerator",);
+class_alias("Laminas\Code\Generator\TraitUsageInterface",
+    "Zend\Code\Generator\TraitUsageInterface",);
+class_alias("Laminas\Code\Generator\ClassGenerator",
+    "Zend\Code\Generator\ClassGenerator",);
+
 final class Kernel extends BaseKernel
 {
     use MicroKernelTrait;

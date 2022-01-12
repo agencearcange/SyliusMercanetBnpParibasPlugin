@@ -62,7 +62,6 @@ final class SimplePayment
         $this->resolveEnvironment();
 
         $this->mercanet->setMerchantId($this->merchantId);
-        $this->mercanet->setInterfaceVersion(Mercanet::INTERFACE_VERSION);
         $this->mercanet->setKeyVersion($this->keyVersion);
         $this->mercanet->setAmount($this->amount);
         $this->mercanet->setCurrency($this->currency);
@@ -91,12 +90,6 @@ final class SimplePayment
 
         if (Mercanet::PRODUCTION === $this->environment) {
             $this->mercanet->setUrl(Mercanet::PRODUCTION);
-
-            return;
-        }
-
-        if (Mercanet::SIMULATION === $this->environment) {
-            $this->mercanet->setUrl(Mercanet::SIMULATION);
 
             return;
         }

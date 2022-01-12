@@ -20,6 +20,9 @@ interface MercanetBnpParibasBridgeInterface
      */
     public function paymentVerification();
 
+    /**
+     * @return string|int
+     */
     public function getAuthorisationId();
 
     /**
