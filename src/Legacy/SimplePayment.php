@@ -57,7 +57,7 @@ final class SimplePayment
         $this->targetUrl = $targetUrl;
     }
 
-    public function execute()
+    public function execute(): void
     {
         $this->resolveEnvironment();
 
@@ -80,7 +80,7 @@ final class SimplePayment
     /**
      * @throws \InvalidArgumentException
      */
-    private function resolveEnvironment()
+    private function resolveEnvironment(): void
     {
         if (Mercanet::TEST === $this->environment) {
             $this->mercanet->setUrl(Mercanet::TEST);

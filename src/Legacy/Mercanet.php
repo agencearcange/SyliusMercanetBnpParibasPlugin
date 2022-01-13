@@ -10,7 +10,9 @@ declare(strict_types=1);
 namespace Arcange\SyliusMercanetBnpParibasPlugin\Legacy;
 
 /**
- * @method string|int getAuthorisationId()
+ * @method string getAuthorisationId()
+ * @method void setMerchantId(string $merchantId)
+ * @method void setKeyVersion(string $keyVersion)
  */
 class Mercanet
 {
@@ -53,7 +55,6 @@ class Mercanet
         'KBCONLINE' => 'CREDIT_TRANSFER',
     ];
 
-    /** @var ShaComposer */
     private $secretKey;
 
     private $pspURL = self::TEST;
@@ -97,7 +98,7 @@ class Mercanet
         'XOF' => '952',
     ];
 
-    public static function convertCurrencyToCurrencyCode($currency)
+    public static function convertCurrencyToCurrencyCode(string $currency)
     {
         if (!in_array($currency, array_keys(self::$currencies))) {
             throw new \InvalidArgumentException("Unknown currencyCode $currency.");
@@ -125,6 +126,9 @@ class Mercanet
         $this->secretKey = $secret;
     }
 
+    /**
+     * @return false|string
+     */
     public function shaCompose(array $parameters)
     {
         // compose SHA string
@@ -151,25 +155,25 @@ class Mercanet
         return $this->pspURL;
     }
 
-    public function setUrl($pspUrl)
+    public function setUrl($pspUrl): void
     {
         $this->validateUri($pspUrl);
         $this->pspURL = $pspUrl;
     }
 
-    public function setNormalReturnUrl($url)
+    public function setNormalReturnUrl($url): void
     {
         $this->validateUri($url);
         $this->parameters['normalReturnUrl'] = $url;
     }
 
-    public function setAutomaticResponseUrl($url)
+    public function setAutomaticResponseUrl($url): void
     {
         $this->validateUri($url);
         $this->parameters['automaticResponseUrl'] = $url;
     }
 
-    public function setTransactionReference($transactionReference)
+    public function setTransactionReference($transactionReference): void
     {
         if (preg_match('/[^a-zA-Z0-9_-]/', $transactionReference)) {
             throw new \InvalidArgumentException('TransactionReference cannot contain special characters');
@@ -180,7 +184,7 @@ class Mercanet
     /**
      * Set amount in cents, eg EUR 12.34 is written as 1234
      */
-    public function setAmount($amount)
+    public function setAmount($amount): void
     {
         if (!is_int($amount)) {
             throw new \InvalidArgumentException('Integer expected. Amount is always in cents');
@@ -191,7 +195,7 @@ class Mercanet
         $this->parameters['amount'] = $amount;
     }
 
-    public function setCurrency($currency)
+    public function setCurrency($currency): void
     {
         if (!array_key_exists(strtoupper($currency), self::getCurrencies())) {
             throw new \InvalidArgumentException('Unknown currency');
@@ -199,7 +203,7 @@ class Mercanet
         $this->parameters['currencyCode'] = self::convertCurrencyToCurrencyCode($currency);
     }
 
-    public function setLanguage($language)
+    public function setLanguage($language): void
     {
         if (!in_array($language, $this->allowedlanguages)) {
             throw new \InvalidArgumentException('Invalid language locale');
@@ -207,7 +211,7 @@ class Mercanet
         $this->parameters['customerLanguage'] = $language;
     }
 
-    public function setPaymentBrand($brand)
+    public function setPaymentBrand($brand): void
     {
         $this->parameters['paymentMeanBrandList'] = '';
         if (!array_key_exists(strtoupper($brand), $this->brandsmap)) {
@@ -216,7 +220,7 @@ class Mercanet
         $this->parameters['paymentMeanBrandList'] = strtoupper($brand);
     }
 
-    public function setCustomerContactEmail($email)
+    public function setCustomerContactEmail($email): void
     {
         if (strlen($email) > 50) {
             throw new \InvalidArgumentException('Email is too long');
@@ -227,7 +231,7 @@ class Mercanet
         $this->parameters['customerContact.email'] = $email;
     }
 
-    public function setBillingContactEmail($email)
+    public function setBillingContactEmail($email): void
     {
         if (strlen($email) > 50) {
             throw new \InvalidArgumentException('Email is too long');
@@ -238,7 +242,7 @@ class Mercanet
         $this->parameters['billingContact.email'] = $email;
     }
 
-    public function setBillingAddressStreet($street)
+    public function setBillingAddressStreet($street): void
     {
         if (strlen($street) > 35) {
             throw new \InvalidArgumentException('street is too long');
@@ -246,7 +250,7 @@ class Mercanet
         $this->parameters['billingAddress.street'] = \Normalizer::normalize($street);
     }
 
-    public function setBillingAddressStreetNumber($nr)
+    public function setBillingAddressStreetNumber($nr): void
     {
         if (strlen($nr) > 10) {
             throw new \InvalidArgumentException('streetNumber is too long');
@@ -254,7 +258,7 @@ class Mercanet
         $this->parameters['billingAddress.streetNumber'] = \Normalizer::normalize($nr);
     }
 
-    public function setBillingAddressZipCode($zipCode)
+    public function setBillingAddressZipCode($zipCode): void
     {
         if (strlen($zipCode) > 10) {
             throw new \InvalidArgumentException('zipCode is too long');
@@ -262,7 +266,7 @@ class Mercanet
         $this->parameters['billingAddress.zipCode'] = \Normalizer::normalize($zipCode);
     }
 
-    public function setBillingAddressCity($city)
+    public function setBillingAddressCity($city): void
     {
         if (strlen($city) > 25) {
             throw new \InvalidArgumentException('city is too long');
@@ -270,7 +274,7 @@ class Mercanet
         $this->parameters['billingAddress.city'] = \Normalizer::normalize($city);
     }
 
-    public function setBillingContactPhone($phone)
+    public function setBillingContactPhone($phone): void
     {
         if (strlen($phone) > 30) {
             throw new \InvalidArgumentException('phone is too long');
@@ -278,17 +282,17 @@ class Mercanet
         $this->parameters['billingContact.phone'] = $phone;
     }
 
-    public function setBillingContactFirstname($firstname)
+    public function setBillingContactFirstname($firstname): void
     {
         $this->parameters['billingContact.firstname'] = str_replace(["'", '"'], '', \Normalizer::normalize($firstname)); // replace quotes
     }
 
-    public function setBillingContactLastname($lastname)
+    public function setBillingContactLastname($lastname): void
     {
         $this->parameters['billingContact.lastname'] = str_replace(["'", '"'], '', \Normalizer::normalize($lastname)); // replace quotes
     }
 
-    public function setCaptureDay($number)
+    public function setCaptureDay($number): void
     {
         if (strlen($number) > 2) {
             throw new \InvalidArgumentException('captureDay is too long');
@@ -298,7 +302,7 @@ class Mercanet
 
     // Methodes liees a la lutte contre la fraude
 
-    public function setFraudDataBypass3DS($value)
+    public function setFraudDataBypass3DS($value): void
     {
         if (strlen($value) > 128) {
             throw new \InvalidArgumentException('fraudData.bypass3DS is too long');
@@ -308,7 +312,7 @@ class Mercanet
 
     // Methodes liees au paiement one-click
 
-    public function setMerchantWalletId($wallet)
+    public function setMerchantWalletId($wallet): void
     {
         if (strlen($wallet) > 21) {
             throw new \InvalidArgumentException('merchantWalletId is too long');
@@ -320,7 +324,7 @@ class Mercanet
 
     // Methodes liees au paiement en n-fois
 
-    public function setInstalmentDataNumber($number)
+    public function setInstalmentDataNumber($number): void
     {
         if (strlen($number) > 2) {
             throw new \InvalidArgumentException('instalmentData.number is too long');
@@ -331,22 +335,22 @@ class Mercanet
         $this->parameters['instalmentData.number'] = $number;
     }
 
-    public function setInstalmentDatesList($datesList)
+    public function setInstalmentDatesList($datesList): void
     {
         $this->parameters['instalmentData.datesList'] = $datesList;
     }
 
-    public function setInstalmentDataTransactionReferencesList($transactionReferencesList)
+    public function setInstalmentDataTransactionReferencesList($transactionReferencesList): void
     {
         $this->parameters['instalmentData.transactionReferencesList'] = $transactionReferencesList;
     }
 
-    public function setInstalmentDataAmountsList($amountsList)
+    public function setInstalmentDataAmountsList($amountsList): void
     {
         $this->parameters['instalmentData.amountsList'] = $amountsList;
     }
 
-    public function setPaymentPattern($paymentPattern)
+    public function setPaymentPattern($paymentPattern): void
     {
         $this->parameters['paymentPattern'] = $paymentPattern;
     }
@@ -377,7 +381,7 @@ class Mercanet
         return $this->parameters;
     }
 
-    public function toParameterString()
+    public function toParameterString(): string
     {
         $parameterString = '';
         foreach ($this->parameters as $key => $value) {
@@ -388,7 +392,7 @@ class Mercanet
         return $parameterString;
     }
 
-    public function setOrderChannel($value)
+    public function setOrderChannel($value): void
     {
         if (strlen($value) > 20) {
             throw new \InvalidArgumentException('orderChannel is too long');
@@ -396,18 +400,7 @@ class Mercanet
         $this->parameters['orderChannel'] = $value;
     }
 
-    /** @return PaymentRequest */
-    public static function createFromArray(ShaComposer $shaComposer, array $parameters)
-    {
-        $instance = new static($shaComposer);
-        foreach ($parameters as $key => $value) {
-            $instance->{"set$key"}($value);
-        }
-
-        return $instance;
-    }
-
-    public function validate()
+    public function validate(): void
     {
         foreach ($this->requiredFields as $field) {
             if (empty($this->parameters[$field])) {
@@ -416,7 +409,7 @@ class Mercanet
         }
     }
 
-    protected function validateUri($uri)
+    protected function validateUri($uri): void
     {
         if (!filter_var($uri, \FILTER_VALIDATE_URL)) {
             throw new \InvalidArgumentException('Uri is not valid');
@@ -432,7 +425,7 @@ class Mercanet
 
     public const DATA_FIELD = 'DATA';
 
-    public function setResponse(array $httpRequest)
+    public function setResponse(array $httpRequest): void
     {
         // use lowercase internally
         $httpRequest = array_change_key_case($httpRequest, \CASE_UPPER);
@@ -451,8 +444,12 @@ class Mercanet
 
     /**
      * Filter http request parameters
+     *
+     * @return string[]
+     *
+     * @psalm-return array<string, string>
      */
-    private function filterRequestParameters(array $httpRequest)
+    private function filterRequestParameters(array $httpRequest): array
     {
         //filter request for Sips parameters
         if (!array_key_exists(self::DATA_FIELD, $httpRequest) || $httpRequest[self::DATA_FIELD] == '') {
@@ -470,7 +467,7 @@ class Mercanet
         return $parameters;
     }
 
-    public function getSeal()
+    public function getSeal(): string
     {
         return $this->shaSign;
     }
@@ -499,7 +496,7 @@ class Mercanet
      *
      * @throws \InvalidArgumentException
      */
-    public function getParam($key)
+    public function getParam(string $key)
     {
         if (method_exists($this, 'get' . $key)) {
             return $this->{'get' . $key}();
@@ -525,7 +522,7 @@ class Mercanet
         return (int) ($value);
     }
 
-    public function isSuccessful()
+    public function isSuccessful(): bool
     {
         return in_array($this->getParam('RESPONSECODE'), ['00', '60']);
     }
@@ -535,7 +532,7 @@ class Mercanet
         return $this->dataString;
     }
 
-    public function executeRequest()
+    public function executeRequest(): ?string
     {
         return '<html><body><form name="redirectForm" method="POST" action="' . $this->getUrl() . '">' .
             '<input type="hidden" name="Data" value="' . $this->toParameterString() . '">' .

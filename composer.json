@@ -5,11 +5,12 @@
     "description": "Mercanet BNP Paribas payment plugin for Sylius applications.",
     "license": "MIT",
     "require": {
-        "php": "^7.3",
+        "php": "^7.4",
         "ext-curl": "*",
-        "ext-xml": "*",
         "ext-json": "*",
-        "sylius/sylius": "~1.7.5"
+        "ext-xml": "*",
+        "sylius/sylius": "~1.7.5",
+        "vimeo/psalm": "4.7.1"
     },
     "require-dev": {
         "behat/behat": "^3.6.1",

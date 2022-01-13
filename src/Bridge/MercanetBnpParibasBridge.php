@@ -9,41 +9,34 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 final class MercanetBnpParibasBridge implements MercanetBnpParibasBridgeInterface
 {
-    /** @var RequestStack */
-    private $requestStack;
+    private RequestStack $requestStack;
 
-    /** @var string */
-    private $secretKey;
+    private string $secretKey;
 
-    /** @var string */
-    private $merchantId;
+    private string $merchantId;
 
-    /** @var string */
-    private $keyVersion;
+    private string $keyVersion;
 
-    /** @var string */
-    private $environment;
+    private string $environment;
 
-    /** @var Mercanet */
-    private $mercanet;
+    private ?Mercanet $mercanet;
 
     public function __construct(RequestStack $requestStack)
     {
         $this->requestStack = $requestStack;
+        $this->secretKey = '';
+        $this->merchantId = '';
+        $this->keyVersion = '';
+        $this->environment = '';
+        $this->mercanet = null;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function createMercanet($secretKey)
+    public function createMercanet(string $secretKey): Mercanet
     {
         return new Mercanet($secretKey);
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function paymentVerification()
+    public function paymentVerification(): bool
     {
         if ($this->isPostMethod()) {
             $this->mercanet = new Mercanet($this->secretKey);
@@ -55,81 +48,62 @@ final class MercanetBnpParibasBridge implements MercanetBnpParibasBridgeInterfac
         return false;
     }
 
-    public function getAuthorisationId()
+    public function getAuthorisationId(): string
     {
-        return $this->mercanet->getAuthorisationId();
+        if ($this->mercanet) {
+            return $this->mercanet->getAuthorisationId();
+        }
+
+        return '';
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function isPostMethod()
+    public function isPostMethod(): bool
     {
         $currentRequest = $this->requestStack->getCurrentRequest();
 
-        return $currentRequest->isMethod('POST');
+        if ($currentRequest) {
+            return $currentRequest->isMethod('POST');
+        }
+
+        return false;
     }
 
-    /**
-     * @return string
-     */
-    public function getSecretKey()
+    public function getSecretKey(): string
     {
         return $this->secretKey;
     }
 
-    /**
-     * @param string $secretKey
-     */
-    public function setSecretKey($secretKey)
+    public function setSecretKey(string $secretKey): void
     {
         $this->secretKey = $secretKey;
     }
 
-    /**
-     * @return string
-     */
-    public function getMerchantId()
+    public function getMerchantId(): string
     {
         return $this->merchantId;
     }
 
-    /**
-     * @param string $merchantId
-     */
-    public function setMerchantId($merchantId)
+    public function setMerchantId(string $merchantId): void
     {
         $this->merchantId = $merchantId;
     }
 
-    /**
-     * @return string
-     */
-    public function getKeyVersion()
+    public function getKeyVersion(): string
     {
         return $this->keyVersion;
     }
 
-    /**
-     * @param string $keyVersion
-     */
-    public function setKeyVersion($keyVersion)
+    public function setKeyVersion(string $keyVersion): void
     {
         $this->keyVersion = $keyVersion;
     }
 
-    /**
-     * @return string
-     */
-    public function getEnvironment()
+    public function getEnvironment(): string
     {
         return $this->environment;
     }
 
-    /**
-     * @param string $environment
-     */
-    public function setEnvironment($environment)
+    public function setEnvironment(string $environment): void
     {
         $this->environment = $environment;
     }

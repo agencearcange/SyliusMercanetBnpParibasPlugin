@@ -8,65 +8,27 @@ use Arcange\SyliusMercanetBnpParibasPlugin\Legacy\Mercanet;
 
 interface MercanetBnpParibasBridgeInterface
 {
-    /**
-     * @param string $secretKey
-     *
-     * @return Mercanet
-     */
-    public function createMercanet($secretKey);
+    public function createMercanet(string $secretKey): Mercanet;
 
-    /**
-     * @return bool
-     */
-    public function paymentVerification();
+    public function paymentVerification(): bool;
 
-    /**
-     * @return string|int
-     */
-    public function getAuthorisationId();
+    public function getAuthorisationId(): string;
 
-    /**
-     * @return bool
-     */
-    public function isPostMethod();
+    public function isPostMethod(): bool;
 
-    /**
-     * @return string
-     */
-    public function getSecretKey();
+    public function getSecretKey(): string;
 
-    /**
-     * @param string $secretKey
-     */
-    public function setSecretKey($secretKey);
+    public function setSecretKey(string $secretKey);
 
-    /**
-     * @return string
-     */
-    public function getMerchantId();
+    public function getMerchantId(): string;
 
-    /**
-     * @param string $merchantId
-     */
-    public function setMerchantId($merchantId);
+    public function setMerchantId(string $merchantId);
 
-    /**
-     * @return string
-     */
-    public function getKeyVersion();
+    public function getKeyVersion(): string;
 
-    /**
-     * @param string $keyVersion
-     */
-    public function setKeyVersion($keyVersion);
+    public function setKeyVersion(string $keyVersion);
 
-    /**
-     * @return string
-     */
-    public function getEnvironment();
+    public function getEnvironment(): string;
 
-    /**
-     * @param string $environment
-     */
-    public function setEnvironment($environment);
+    public function setEnvironment(string $environment);
 }
