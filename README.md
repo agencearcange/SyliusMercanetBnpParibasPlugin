@@ -19,13 +19,12 @@ This version (v1) support Sylius 1.7
 | PHP | ^7.4    |
 | Sylius | 1.7     |
 
+----
+```bash
+$ composer require arcange/sylius-mercanet-bnp-paribas-plugin
+```
 
-Note: to test the plugin locally, see [CONTRIBUTING.md](CONTRIBUTING.md)
-
-1. [Install Sylius](https://docs.sylius.com/en/latest/book/installation/installation.html)
-2. Install **Mercanet Plugin**: `composer require arcange/mercanet-bnp-paribas-plugin`
-3. Register the bundle:
-
+Add plugin dependencies to your config/bundles.php file:
 ```php
 <?php
 
@@ -37,6 +36,11 @@ return [
 ];
 ```
 
+## Usage
+
+Go to the payment methods in your admin panel. Now you should be able to add new payment method for Mercanet BNP Paribas gateway.
+
+Note: to test the plugin locally, see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## Credit
 
