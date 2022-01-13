@@ -12,7 +12,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 final class ArcangeSyliusMercanetBnpParibasExtension extends Extension
 {
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function load(array $configs, ContainerBuilder $container)
     {

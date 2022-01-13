@@ -34,7 +34,7 @@ final class CaptureAction implements ActionInterface, ApiAwareInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function setApi($mercanetBnpParibasBridge)
     {
@@ -46,7 +46,7 @@ final class CaptureAction implements ActionInterface, ApiAwareInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      *
      * @param Capture $request
      */
@@ -135,7 +135,7 @@ final class CaptureAction implements ActionInterface, ApiAwareInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function supports($request)
     {

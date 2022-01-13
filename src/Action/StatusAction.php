@@ -22,7 +22,7 @@ final class StatusAction implements ActionInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      *
      * @param GetStatusInterface $request
      */
@@ -59,7 +59,7 @@ final class StatusAction implements ActionInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function supports($request)
     {

@@ -33,7 +33,7 @@ final class MercanetBnpParibasBridge implements MercanetBnpParibasBridgeInterfac
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function createMercanet($secretKey)
     {
@@ -41,7 +41,7 @@ final class MercanetBnpParibasBridge implements MercanetBnpParibasBridgeInterfac
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function paymentVerification()
     {
@@ -61,7 +61,7 @@ final class MercanetBnpParibasBridge implements MercanetBnpParibasBridgeInterfac
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function isPostMethod()
     {

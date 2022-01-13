@@ -12,7 +12,7 @@ use Payum\Core\GatewayFactory;
 final class MercanetBnpParibasGatewayFactory extends GatewayFactory
 {
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     protected function populateConfig(ArrayObject $config)
     {

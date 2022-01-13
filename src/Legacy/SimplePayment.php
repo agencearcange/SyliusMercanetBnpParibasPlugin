@@ -95,8 +95,12 @@ final class SimplePayment
         }
 
         throw new \InvalidArgumentException(
-            sprintf('The "%s" environment is invalid. Expected %s or %s',
-                $this->environment, Mercanet::PRODUCTION, Mercanet::TEST)
+            sprintf(
+                'The "%s" environment is invalid. Expected %s or %s',
+                $this->environment,
+                Mercanet::PRODUCTION,
+                Mercanet::TEST
+            )
         );
     }
 }

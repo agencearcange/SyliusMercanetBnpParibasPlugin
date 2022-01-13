@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 final class MercanetBnpParibasGatewayConfigurationType extends AbstractType
 {
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

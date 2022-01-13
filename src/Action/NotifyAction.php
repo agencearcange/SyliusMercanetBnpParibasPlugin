@@ -32,7 +32,7 @@ final class NotifyAction implements ActionInterface, ApiAwareInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      *
      * @param Notify $request
      */
@@ -56,7 +56,7 @@ final class NotifyAction implements ActionInterface, ApiAwareInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function setApi($mercanetBnpParibasBridge)
     {
@@ -68,7 +68,7 @@ final class NotifyAction implements ActionInterface, ApiAwareInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function supports($request)
     {
