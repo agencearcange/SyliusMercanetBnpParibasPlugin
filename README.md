@@ -1,6 +1,6 @@
 <p align="center">
     <a href="https://agencearcange.fr" target="_blank">
-        <img src="https://media.agencearcange.fr/sylius-arcange.gif" />
+        <img src="https://media.agencearcange.fr/github-images/libs/github-sylius-mercanet.png" />
     </a>
 </p>
 
