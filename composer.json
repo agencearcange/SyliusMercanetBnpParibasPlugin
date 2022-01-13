@@ -9,8 +9,7 @@
         "ext-curl": "*",
         "ext-json": "*",
         "ext-xml": "*",
-        "sylius/sylius": "~1.7.5",
-        "vimeo/psalm": "4.7.1"
+        "sylius/sylius": "~1.7.5"
     },
     "require-dev": {
         "behat/behat": "^3.6.1",
@@ -37,7 +36,8 @@
         "symfony/dotenv": "^4.4|^5.0",
         "symfony/intl": "^4.4|^5.0",
         "symfony/web-profiler-bundle": "^4.4|^5.0",
-        "symfony/web-server-bundle": "^4.4|^5.0"
+        "symfony/web-server-bundle": "^4.4|^5.0",
+        "vimeo/psalm": "4.7.1"
     },
     "autoload": {
         "psr-4": {
