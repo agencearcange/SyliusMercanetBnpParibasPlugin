@@ -6,7 +6,7 @@
 
 <h1 align="center">Mercanet BNP Paribas payment plugin</h1>
 
-[![Build](https://github.com/agencearcange/SyliusMercanetBnpParibasPlugin/actions/workflows/build.yaml/badge.svg?branch=v1)](https://github.com/agencearcange/SyliusMercanetBnpParibasPlugin/actions/workflows/build.yaml)
+[![Build](https://github.com/agencearcange/SyliusMercanetBnpParibasPlugin/actions/workflows/build.yaml/badge.svg)](https://github.com/agencearcange/SyliusMercanetBnpParibasPlugin/actions/workflows/build.yaml)
 
 ## Install
 
