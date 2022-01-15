@@ -42,7 +42,7 @@ final class MercanetBnpParibasBridge implements MercanetBnpParibasBridgeInterfac
             $this->mercanet = new Mercanet($this->secretKey);
             $this->mercanet->setResponse($_POST);
 
-            return $this->mercanet->isValid();
+            return $this->mercanet->isValid() && $this->mercanet->isSuccessful();
         }
 
         return false;
@@ -51,7 +51,7 @@ final class MercanetBnpParibasBridge implements MercanetBnpParibasBridgeInterfac
     public function getAuthorisationId(): string
     {
         if ($this->mercanet) {
-            return $this->mercanet->getAuthorisationId();
+            return $this->mercanet->getParam('authorisationId');
         }
 
         return '';
