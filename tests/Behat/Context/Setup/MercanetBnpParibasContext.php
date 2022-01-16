@@ -4,12 +4,13 @@ namespace Tests\Arcange\SyliusMercanetBnpParibasPlugin\Behat\Context\Setup;
 
 use Behat\Behat\Context\Context;
 use Arcange\SyliusMercanetBnpParibasPlugin\Legacy\Mercanet;
+use Doctrine\ORM\EntityManager;
 use Sylius\Behat\Service\SharedStorageInterface;
 use Sylius\Bundle\CoreBundle\Fixture\Factory\ExampleFactoryInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Core\Repository\PaymentMethodRepositoryInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 
 final class MercanetBnpParibasContext implements Context
 {

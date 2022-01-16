@@ -20,8 +20,6 @@ This branch (main) support Sylius 1.10+
 | Sylius  | 1.10       |
 
 [Use v1 for Sylius 1.7](https://github.com/agencearcange/SyliusMercanetBnpParibasPlugin/tree/v1)
-
-
 ----
 ```bash
 $ composer require arcange/sylius-mercanet-bnp-paribas-plugin
