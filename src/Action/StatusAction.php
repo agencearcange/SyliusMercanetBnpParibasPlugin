@@ -24,7 +24,7 @@ final class StatusAction implements ActionInterface
     /**
      * @inheritdoc
      *
-     * @param GetStatusInterface $request
+     * @param mixed $request
      */
     public function execute($request)
     {

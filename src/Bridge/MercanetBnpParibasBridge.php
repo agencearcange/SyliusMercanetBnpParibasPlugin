@@ -50,7 +50,7 @@ final class MercanetBnpParibasBridge implements MercanetBnpParibasBridgeInterfac
 
     public function getAuthorisationId(): string
     {
-        if ($this->mercanet) {
+        if ($this->mercanet !== null) {
             return $this->mercanet->getParam('authorisationId');
         }
 
@@ -61,7 +61,7 @@ final class MercanetBnpParibasBridge implements MercanetBnpParibasBridgeInterfac
     {
         $currentRequest = $this->requestStack->getCurrentRequest();
 
-        if ($currentRequest) {
+        if ($currentRequest !== null) {
             return $currentRequest->isMethod('POST');
         }
 

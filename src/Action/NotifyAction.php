@@ -34,7 +34,7 @@ final class NotifyAction implements ActionInterface, ApiAwareInterface
     /**
      * @inheritdoc
      *
-     * @param Notify $request
+     * @param mixed $request
      */
     public function execute($request)
     {

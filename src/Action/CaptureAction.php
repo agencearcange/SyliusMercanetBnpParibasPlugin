@@ -48,7 +48,7 @@ final class CaptureAction implements ActionInterface, ApiAwareInterface
     /**
      * @inheritdoc
      *
-     * @param Capture $request
+     * @param mixed $request
      */
     public function execute($request)
     {

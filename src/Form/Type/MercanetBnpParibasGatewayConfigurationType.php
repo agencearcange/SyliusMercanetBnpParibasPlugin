@@ -55,7 +55,7 @@ final class MercanetBnpParibasGatewayConfigurationType extends AbstractType
                     ]),
                 ],
             ])
-            ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+            ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event): void {
                 $data = $event->getData();
                 $data['payum.http_client'] = '@arcange.mercanet_bnp_paribas.bridge.mercanet_bnp_paribas_bridge';
                 $event->setData($data);
