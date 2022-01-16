@@ -12,12 +12,15 @@
 
 ### Requirements
 
-This version (v1) support Sylius 1.7
+This branch (main) support Sylius 1.10+
 
-| Package | Version |
-| --- |---------|
-| PHP | ^7.4    |
-| Sylius | 1.7     |
+| Package | Version    |
+|---------|------------|
+| PHP     | ^7.4, ^8.0 |
+| Sylius  | 1.10       |
+
+[Use v1 for Sylius 1.7](https://github.com/agencearcange/SyliusMercanetBnpParibasPlugin/tree/v1)
+
 
 ----
 ```bash
