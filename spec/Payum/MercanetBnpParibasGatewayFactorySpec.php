@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\Arcange\SyliusMercanetBnpParibasPlugin;
+namespace spec\Arcange\SyliusMercanetBnpParibasPlugin\Payum;
 
 use Arcange\SyliusMercanetBnpParibasPlugin\Payum\MercanetBnpParibasGatewayFactory;
 use Payum\Core\GatewayFactory;

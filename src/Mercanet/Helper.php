@@ -41,32 +41,4 @@ class Helper
 
         return hash('sha256', $shaString);
     }
-
-    public static function executeRequest(string $url, array $parameters = []): string
-    {
-        $html = <<<HTML
-                    <!doctype html>
-                    <html lang="en">
-                    <head>
-                    </head>
-                    <body>
-                        <form id="redirect_form" method="post" action="{$url}" >'
-                    HTML;
-
-        foreach ($parameters as $name => $value) {
-            $html .= "<input type='hidden' name='$name' id='$name' value='$value' />";
-        }
-
-        $html .= <<<HTML
-                    </form>
-                    <script>
-                        const form = document.getElementById("redirect_form");
-                        form.submit();
-                    </script>
-                </body>
-                </html>';
-                HTML;
-
-        return $html;
-    }
 }

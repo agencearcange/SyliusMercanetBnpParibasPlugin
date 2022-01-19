@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\Arcange\SyliusMercanetBnpParibasPlugin\Action;
+namespace spec\Arcange\SyliusMercanetBnpParibasPlugin\Payum\Action;
 
 use Arcange\SyliusMercanetBnpParibasPlugin\Payum\Action\ConvertPaymentAction;
 use Payum\Core\Model\PaymentInterface;
