@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Arcange\SyliusMercanetBnpParibasPlugin\Form\Type;
 
-use Arcange\SyliusMercanetBnpParibasPlugin\Legacy\Mercanet;
+use Arcange\SyliusMercanetBnpParibasPlugin\Mercanet\Mercanet;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;

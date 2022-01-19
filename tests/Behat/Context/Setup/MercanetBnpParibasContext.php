@@ -3,8 +3,7 @@
 namespace Tests\Arcange\SyliusMercanetBnpParibasPlugin\Behat\Context\Setup;
 
 use Behat\Behat\Context\Context;
-use Arcange\SyliusMercanetBnpParibasPlugin\Legacy\Mercanet;
-use Doctrine\ORM\EntityManager;
+use Arcange\SyliusMercanetBnpParibasPlugin\Mercanet\Mercanet;
 use Sylius\Behat\Service\SharedStorageInterface;
 use Sylius\Bundle\CoreBundle\Fixture\Factory\ExampleFactoryInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;

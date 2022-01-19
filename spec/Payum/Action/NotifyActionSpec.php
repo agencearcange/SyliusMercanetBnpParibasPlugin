@@ -1,9 +1,9 @@
 <?php
 
-namespace spec\Arcange\SyliusMercanetBnpParibasPlugin\Action;
+namespace spec\Arcange\SyliusMercanetBnpParibasPlugin\Payum\Action;
 
-use Arcange\SyliusMercanetBnpParibasPlugin\Action\NotifyAction;
 use Arcange\SyliusMercanetBnpParibasPlugin\Bridge\MercanetBnpParibasBridgeInterface;
+use Arcange\SyliusMercanetBnpParibasPlugin\Payum\Action\NotifyAction;
 use Payum\Core\Request\Notify;
 use PhpSpec\ObjectBehavior;
 use SM\Factory\FactoryInterface;

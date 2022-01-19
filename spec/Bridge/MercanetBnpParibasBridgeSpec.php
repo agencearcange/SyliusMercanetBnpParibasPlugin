@@ -4,7 +4,7 @@ namespace spec\Arcange\SyliusMercanetBnpParibasPlugin\Bridge;
 
 use Arcange\SyliusMercanetBnpParibasPlugin\Bridge\MercanetBnpParibasBridge;
 use Arcange\SyliusMercanetBnpParibasPlugin\Bridge\MercanetBnpParibasBridgeInterface;
-use Arcange\SyliusMercanetBnpParibasPlugin\Legacy\Mercanet;
+use Arcange\SyliusMercanetBnpParibasPlugin\Mercanet\Mercanet;
 use PhpSpec\ObjectBehavior;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
