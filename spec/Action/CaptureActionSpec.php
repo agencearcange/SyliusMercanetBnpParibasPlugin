@@ -3,7 +3,7 @@
 namespace spec\Arcange\SyliusMercanetBnpParibasPlugin\Action;
 
 use Arcange\SyliusMercanetBnpParibasPlugin\Bridge\MercanetBnpParibasBridgeInterface;
-use Arcange\SyliusMercanetBnpParibasPlugin\Legacy\Mercanet;
+use Arcange\SyliusMercanetBnpParibasPlugin\Mercanet\Mercanet;
 use Arcange\SyliusMercanetBnpParibasPlugin\Payum\Action\CaptureAction;
 use Payum\Core\Model\Token;
 use Payum\Core\Payum;
