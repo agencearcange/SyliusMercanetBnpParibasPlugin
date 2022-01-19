@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Arcange\SyliusMercanetBnpParibasPlugin\Bridge;
 
-use Arcange\SyliusMercanetBnpParibasPlugin\Legacy\Mercanet;
+use Arcange\SyliusMercanetBnpParibasPlugin\Mercanet\Mercanet;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 final class MercanetBnpParibasBridge implements MercanetBnpParibasBridgeInterface
@@ -40,7 +40,7 @@ final class MercanetBnpParibasBridge implements MercanetBnpParibasBridgeInterfac
     {
         if ($this->isPostMethod()) {
             $this->mercanet = new Mercanet($this->secretKey);
-            $this->mercanet->setResponse($_POST);
+            $this->mercanet->fromResponse($_POST);
 
             return $this->mercanet->isValid() && $this->mercanet->isSuccessful();
         }
@@ -51,7 +51,7 @@ final class MercanetBnpParibasBridge implements MercanetBnpParibasBridgeInterfac
     public function getAuthorisationId(): string
     {
         if ($this->mercanet !== null) {
-            return $this->mercanet->getParam('authorisationId');
+            return $this->mercanet->getParameter('authorisationId');
         }
 
         return '';

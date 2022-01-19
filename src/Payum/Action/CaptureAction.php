@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Arcange\SyliusMercanetBnpParibasPlugin\Action;
+namespace Arcange\SyliusMercanetBnpParibasPlugin\Payum\Action;
 
 use Arcange\SyliusMercanetBnpParibasPlugin\Bridge\MercanetBnpParibasBridgeInterface;
-use Arcange\SyliusMercanetBnpParibasPlugin\Legacy\SimplePayment;
+use Arcange\SyliusMercanetBnpParibasPlugin\Mercanet\SimplePayment;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\ApiAwareInterface;
 use Payum\Core\Bridge\Spl\ArrayObject;

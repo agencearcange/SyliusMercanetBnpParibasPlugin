@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Arcange\SyliusMercanetBnpParibasPlugin;
+namespace Arcange\SyliusMercanetBnpParibasPlugin\Payum;
 
-use Arcange\SyliusMercanetBnpParibasPlugin\Action\ConvertPaymentAction;
+use Arcange\SyliusMercanetBnpParibasPlugin\Bridge;
 use Arcange\SyliusMercanetBnpParibasPlugin\Bridge\MercanetBnpParibasBridgeInterface;
+use Arcange\SyliusMercanetBnpParibasPlugin\Payum\Action\ConvertPaymentAction;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\GatewayFactory;
 

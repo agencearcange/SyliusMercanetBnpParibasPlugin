@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Arcange\SyliusMercanetBnpParibasPlugin\Bridge;
 
-use Arcange\SyliusMercanetBnpParibasPlugin\Legacy\Mercanet;
+use Arcange\SyliusMercanetBnpParibasPlugin\Mercanet\Mercanet;
 
 interface MercanetBnpParibasBridgeInterface
 {

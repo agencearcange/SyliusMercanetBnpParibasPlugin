@@ -2,7 +2,7 @@
 
 namespace Tests\Arcange\SyliusMercanetBnpParibasPlugin\Behat\Mocker;
 
-use Arcange\SyliusMercanetBnpParibasPlugin\Legacy\Mercanet;
+use Arcange\SyliusMercanetBnpParibasPlugin\Mercanet\Mercanet;
 use Arcange\SyliusMercanetBnpParibasPlugin\Bridge\MercanetBnpParibasBridgeInterface;
 use Sylius\Behat\Service\Mocker\Mocker;
 

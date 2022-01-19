@@ -2,10 +2,10 @@
 
 namespace spec\Arcange\SyliusMercanetBnpParibasPlugin\Action;
 
-use Arcange\SyliusMercanetBnpParibasPlugin\Action\ConvertPaymentAction;
-use PhpSpec\ObjectBehavior;
-use Payum\Core\Request\Convert;
+use Arcange\SyliusMercanetBnpParibasPlugin\Payum\Action\ConvertPaymentAction;
 use Payum\Core\Model\PaymentInterface;
+use Payum\Core\Request\Convert;
+use PhpSpec\ObjectBehavior;
 
 final class ConvertPaymentActionSpec extends ObjectBehavior
 {

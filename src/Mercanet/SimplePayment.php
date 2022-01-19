@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Arcange\SyliusMercanetBnpParibasPlugin\Legacy;
+namespace Arcange\SyliusMercanetBnpParibasPlugin\Mercanet;
 
 use Payum\Core\Reply\HttpResponse;
 
@@ -70,11 +70,9 @@ final class SimplePayment
         $this->mercanet->setNormalReturnUrl($this->targetUrl);
         $this->mercanet->setAutomaticResponseUrl($this->automaticResponseUrl);
 
-        $this->mercanet->validate();
+        $this->mercanet->validateRequiredOptions();
 
-        $response = $this->mercanet->executeRequest();
-
-        throw new HttpResponse($response);
+        throw new HttpResponse($this->mercanet->generatePayment());
     }
 
     /**

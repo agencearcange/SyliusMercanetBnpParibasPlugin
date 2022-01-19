@@ -2,9 +2,9 @@
 
 namespace spec\Arcange\SyliusMercanetBnpParibasPlugin;
 
-use Arcange\SyliusMercanetBnpParibasPlugin\MercanetBnpParibasGatewayFactory;
-use PhpSpec\ObjectBehavior;
+use Arcange\SyliusMercanetBnpParibasPlugin\Payum\MercanetBnpParibasGatewayFactory;
 use Payum\Core\GatewayFactory;
+use PhpSpec\ObjectBehavior;
 
 final class MercanetBnpParibasGatewayFactorySpec extends ObjectBehavior
 {

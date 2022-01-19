@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Arcange\SyliusMercanetBnpParibasPlugin\Action;
+namespace Arcange\SyliusMercanetBnpParibasPlugin\Payum\Action;
 
 use Arcange\SyliusMercanetBnpParibasPlugin\Bridge\MercanetBnpParibasBridgeInterface;
 use Payum\Core\Action\ActionInterface;

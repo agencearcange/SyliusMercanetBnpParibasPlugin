@@ -9,12 +9,12 @@ services:
     arcange.mercanet_bnp_paribas.gateway_factory:
         class: Payum\Core\Bridge\Symfony\Builder\GatewayFactoryBuilder
         public: true
-        arguments: [Arcange\SyliusMercanetBnpParibasPlugin\MercanetBnpParibasGatewayFactory]
+        arguments: [Arcange\SyliusMercanetBnpParibasPlugin\Payum\MercanetBnpParibasGatewayFactory]
         tags:
             - { name: payum.gateway_factory_builder, factory: mercanet_bnp_paribas }
 
     arcange.mercanet_bnp_paribas.action.capture:
-        class: Arcange\SyliusMercanetBnpParibasPlugin\Action\CaptureAction
+        class: Arcange\SyliusMercanetBnpParibasPlugin\Payum\Action\CaptureAction
         public: true
         arguments:
             - '@payum'
@@ -22,7 +22,7 @@ services:
             - { name: payum.action, factory: mercanet_bnp_paribas, alias: payum.action.capture }
 
     arcange.mercanet_bnp_paribas.action.notify:
-        class: Arcange\SyliusMercanetBnpParibasPlugin\Action\NotifyAction
+        class: Arcange\SyliusMercanetBnpParibasPlugin\Payum\Action\NotifyAction
         public: true
         arguments:
             - '@sm.factory'
@@ -30,7 +30,7 @@ services:
             - { name: payum.action, factory: mercanet_bnp_paribas, alias: payum.action.notify }
 
     arcange.mercanet_bnp_paribas.action.status:
-        class: Arcange\SyliusMercanetBnpParibasPlugin\Action\StatusAction
+        class: Arcange\SyliusMercanetBnpParibasPlugin\Payum\Action\StatusAction
         public: true
         arguments:
             - '@request_stack'
