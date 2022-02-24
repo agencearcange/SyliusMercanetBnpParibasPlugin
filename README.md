@@ -14,8 +14,8 @@
 
 This branch (main) support Sylius 1.11+
 
--[Use v2 for Sylius 1.10](https://github.com/agencearcange/SyliusMercanetBnpParibasPlugin/tree/v2) 
--[Use v1 for Sylius 1.7](https://github.com/agencearcange/SyliusMercanetBnpParibasPlugin/tree/v1)
+- [Use v2 for Sylius 1.10](https://github.com/agencearcange/SyliusMercanetBnpParibasPlugin/tree/v2) 
+- [Use v1 for Sylius 1.7](https://github.com/agencearcange/SyliusMercanetBnpParibasPlugin/tree/v1)
 
 | Package | Version |
 |---------|---------|
