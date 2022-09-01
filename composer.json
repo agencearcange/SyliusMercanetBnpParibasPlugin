@@ -50,7 +50,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-main": "v1-dev"
+            "dev-main": "1.0-dev"
         }
     },
     "config": {
