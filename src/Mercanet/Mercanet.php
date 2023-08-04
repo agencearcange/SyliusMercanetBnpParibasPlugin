@@ -14,9 +14,9 @@ use Arcange\SyliusMercanetBnpParibasPlugin\Mercanet\Concerns\MercanetResponse;
  */
 class Mercanet
 {
-    public const TEST = "https://payment-webinit-mercanet.test.sips-services.com/rs-services/v2/paymentInit";
+    public const TEST = "https://payment-webinit-mercanet.test.sips-services.com/paymentInit";
 
-    public const PRODUCTION = "https://payment-webinit.mercanet.bnpparibas.net/rs-services/v2/paymentInit";
+    public const PRODUCTION = "https://payment-webinit.mercanet.bnpparibas.net/paymentInit";
 
     public const INTERFACE_VERSION = 'HP_2.20';
 
