@@ -49,7 +49,7 @@ final class MercanetBnpParibasCheckoutPage extends Page implements MercanetBnpPa
      */
     protected function getUrl(array $urlParameters = []): string
     {
-        return 'https://payment-webinit-mercanet.test.sips-atos.com/paymentInit';
+        return 'https://payment-webinit-mercanet.test.sips-services.com/rs-services/v2/paymentInit';
     }
 
     /**
